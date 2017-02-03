@@ -21,6 +21,10 @@
     "bugs": {
         "url": "https://github.com/Neur0mante/draggable-directive/issues"
     },
+    "peerDependencies": {
+        "@angular/common": "~2.4.6",
+        "@angular/core": "2.4.6"
+    },
     "devDependencies": {
         "typescript": "^2.1.5",
         "@angular/common": "~2.4.6",
