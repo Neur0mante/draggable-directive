@@ -1,6 +1,6 @@
 {
     "name": "draggable-directive",
-    "version": "1.0.1",
+    "version": "1.1.2",
     "description": "A simple draggable directive for angular2",
     "scripts": {
         "prepublish": "tsc"
