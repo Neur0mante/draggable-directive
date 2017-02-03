@@ -1,19 +1,9 @@
-node_modules/
-node_modules/*
-typings/
-typings/*
+# Node generated files
+node_modules
+npm-debug.log
+npm-debug.log.*
 
-.DS_Store
-.idea/modules.xml
-
-.idea/ng2Draggable.iml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
-.temp
-.vscode
-
-dist/*
-**/*.js
-**/*.d.ts
+# Ignored files
+*.js
+*.map
+*.d.ts

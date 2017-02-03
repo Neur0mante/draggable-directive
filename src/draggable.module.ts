@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { DraggableDirective } from './draggable.directive';
 
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
 
 @NgModule({
     // Why CommonModule
