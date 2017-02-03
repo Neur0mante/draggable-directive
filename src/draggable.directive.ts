@@ -10,6 +10,7 @@ export class DraggableDirective implements OnDestroy {
 
   // You can now set draggable on and off by just assigning it a value
   // I dont quite understand how it was working without this
+  @Input("draggable") draggable: boolean = true;
   dragging: boolean = false;
   private Δx: number = 0;
   private Δy: number = 0;
@@ -24,6 +25,7 @@ export class DraggableDirective implements OnDestroy {
     this.Δx = 0;
     this.Δy = 0;
     this.dragging = false;
+    this.el.nativeElement.style.pointerEvents = 'all';
     if (!this.drag$.closed) {
       this.drag$.unsubscribe();
     }
@@ -31,20 +33,24 @@ export class DraggableDirective implements OnDestroy {
 
   @HostListener('mousedown', ['$event'])
   onMousedown(event: MouseEvent) {
-    event.preventDefault();
-    this.Δx = event.x - this.el.nativeElement.offsetLeft;
-    this.Δy = event.y - this.el.nativeElement.offsetTop;
-    this.dragging = true;
-    let end = Observable.fromEvent(document, "mouseup")
-      .subscribe((ev: MouseEvent) => {
-        this.onMouseup(ev);
-      });
-    // The skip allows to avoid staggering in case of a single click. It's not super-elegant cause we are still building and destroying the sub.
-    this.drag$ = Observable.fromEvent(document, "mousemove")
-      .skip(1)
-      .subscribe((ev: MouseEvent) => {
-        this.doTranslation(ev.x, ev.y);
-      });
+    if (this.draggable) {
+      // event.preventDefault();
+      this.Δx = event.x - this.el.nativeElement.offsetLeft;
+      this.Δy = event.y - this.el.nativeElement.offsetTop;
+      this.dragging = true;
+      let end = Observable.fromEvent(document, "mouseup")
+        .subscribe((ev: MouseEvent) => {
+          this.onMouseup(ev);
+        });
+      // The skip allows to avoid staggering in case of a single click. It's not super-elegant cause we are still building and destroying the sub.
+      this.drag$ = Observable.fromEvent(document, "mousemove")
+        .do(event => this.el.nativeElement.style.pointerEvents = 'none')
+        .skip(1)
+        .subscribe((ev: MouseEvent) => {
+          this.doTranslation(ev.x, ev.y);
+        });
+
+    }
   }
 
   // @HostListener('mousemove', ['$event'])
@@ -53,22 +59,18 @@ export class DraggableDirective implements OnDestroy {
 
   ngAfterViewInit() {
     try {
-
-      console.log(this.el.nativeElement.style.getPropertyValue("position"));
+      // Gonna silence this till it's more consistent in detecting the position
       if (this.mustBePosition.indexOf(this.el.nativeElement.style.position) === -1) {
-        console.warn(this.el.nativeElement, 'Must be having position attribute set to ' + this.mustBePosition.join('|'));
-        // this.el.nativeElement.style.position = "relative";
-        // this.renderer.setElementAttribute(this.el.nativeElement, 'position', 'relative');
-        // console.log(this.el.nativeElement.style.getPropertyValue("position"));
+        // console.warn(this.el.nativeElement, 'Must be having position attribute set to ' + this.mustBePosition.join('|'));
       }
     } catch (ex) {
       console.error(ex);
     }
-    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', 'true');
+    // this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', 'true');
   }
 
   public ngOnDestroy(): void {
-    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', 'false');
+    // this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', 'false');
   }
 
 
