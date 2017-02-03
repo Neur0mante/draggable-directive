@@ -1,4 +1,5 @@
-Simple draggable directive for angular2 (Tested in 2.4.5)
+Simple draggable directive for angular2 (Tested in 2.4.5).
+
 Forked from https://github.com/CoderAjay/ng2Draggable
 
 This will just allow to freely move an element around the page, there's no onDrop or any service connected.
