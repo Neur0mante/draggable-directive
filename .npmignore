@@ -6,3 +6,6 @@ npm-debug.log.*
 # Ignored files
 *.ts
 !*.d.ts
+
+#ide 
+.vscode

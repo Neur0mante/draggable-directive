@@ -8,3 +8,6 @@ debug.log
 *.js
 *.map
 *.d.ts
+
+#ide
+.vscode
