@@ -20,10 +20,16 @@ import { DraggableModule } from 'draggable-directive/draggable-directive'
 
 Then you can add the [draggable] directive to elements in your templates
 ```html
-<div [draggable] >Drag me.</div>
+<div [draggable] [style.position]="relative" >Drag me.</div>
 ```
+Remember to set the positioning to either relative, fixed or absolute.
 
 You can optionally disable it by setting it to false:
 ```html
-<div [draggable]=false >Drag me.</div>
+<div [draggable]="false" [style.position]="relative">Drag me.</div>
 ```
+and of course bind it to a property.
+
+
+
+I'm still having some positioning issues in some cases, it's still much of a work in progress.
